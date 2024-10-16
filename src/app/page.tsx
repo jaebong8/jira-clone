@@ -7,7 +7,7 @@ export default function Home() {
       <Input />
       <Button>Clicked Me</Button>
       <Button variant="destructive" size="lg">
-        Clicked Me
+        Clicked Me123
       </Button>
       <Button variant="secondary">Clicked Me</Button>
       <Button variant="ghost">Clicked Me</Button>
