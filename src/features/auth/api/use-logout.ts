@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { InferRequestType, InferResponseType } from "hono";
+import { InferResponseType } from "hono";
 
 import { client } from "@/lib/rpc";
 
@@ -25,6 +25,9 @@ export const useLogout = () => {
       router.refresh();
       queryClient.invalidateQueries({
         queryKey: ["current"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["workspaces"],
       });
     },
     onError: () => {
