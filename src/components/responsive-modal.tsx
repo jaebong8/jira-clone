@@ -1,18 +1,21 @@
+"use client";
 import React, { ReactNode } from "react";
 import { useMedia } from "react-use";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogHeader,
   DialogTitle,
 } from "./ui/dialog";
 import {
   Drawer,
   DrawerContent,
   DrawerDescription,
+  DrawerHeader,
   DrawerTitle,
 } from "./ui/drawer";
-import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 type Props = {
   children: ReactNode;
@@ -26,11 +29,11 @@ const ResponsiveModal = ({ children, open, onOpenChange }: Props) => {
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <VisuallyHidden.Root>
-          <DialogTitle> ResponsiveModal</DialogTitle>
-          <DialogDescription>ResponsiveModal</DialogDescription>
-        </VisuallyHidden.Root>
         <DialogContent className="w-full sm:max-w-lg p-0 border-none overflow-y-auto hide-scrollbar max-h-[85vh]">
+          <VisuallyHidden>
+            <DialogTitle>ResponsiveModal</DialogTitle>
+            <DialogDescription>ResponsiveModal</DialogDescription>
+          </VisuallyHidden>
           {children}
         </DialogContent>
       </Dialog>
@@ -38,11 +41,11 @@ const ResponsiveModal = ({ children, open, onOpenChange }: Props) => {
   }
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <VisuallyHidden.Root>
-        <DrawerTitle> ResponsiveModal</DrawerTitle>
-        <DrawerDescription>ResponsiveModal</DrawerDescription>
-      </VisuallyHidden.Root>
       <DrawerContent>
+        <VisuallyHidden>
+          <DrawerTitle>ResponsiveModal</DrawerTitle>
+          <DrawerDescription>ResponsiveModal</DrawerDescription>
+        </VisuallyHidden>
         <div className="w-full sm:max-w-lg p-0 border-none overflow-y-auto hide-scrollbar max-h-[85vh] mx-auto">
           {children}
         </div>
