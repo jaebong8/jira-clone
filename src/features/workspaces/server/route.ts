@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
-import { createWorkspaceSchema, updateWorkspaceSchema } from "../schema";
+import { createWorkspaceSchema, updateWorkspaceSchema } from "../schemas";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import {
   DATABASE_ID,

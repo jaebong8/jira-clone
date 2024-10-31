@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { createProjectSchema } from "../schema";
+import { createProjectSchema } from "../schemas";
 import { z } from "zod";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import DottedSeparator from "@/components/dotted-separator";
