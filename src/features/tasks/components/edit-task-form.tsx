@@ -18,7 +18,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 import { cn } from "@/lib/utils";
-import { useCreateTask } from "../api/use-create-task";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import DatePicker from "@/components/date-picker";
 import {
@@ -29,35 +28,40 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import MemberAvatar from "@/features/members/components/member-avatar";
-import { TaskStatus } from "../types";
+import { Task, TaskStatus } from "../types";
 import ProjectAvatar from "@/features/projects/components/project-avatar";
+import { useUpdateTask } from "../api/use-update-task";
 
 type Props = {
   onCancel?: () => void;
   projectOptions: { id: string; name: string; imageUrl: string }[];
   memberOptions: { id: string; name: string }[];
-  initialStatus: TaskStatus | null;
+  initialValues: Task;
 };
 
-const CreateTaskForm = ({
+const EditTaskForm = ({
   onCancel,
   projectOptions,
   memberOptions,
-  initialStatus,
+  initialValues,
 }: Props) => {
   const workspaceId = useWorkspaceId();
-  const { mutate, isPending } = useCreateTask();
+  const { mutate, isPending } = useUpdateTask();
 
   const form = useForm<z.infer<typeof createTaskSchema>>({
-    resolver: zodResolver(createTaskSchema.omit({ workspaceId: true })),
+    resolver: zodResolver(
+      createTaskSchema.omit({ workspaceId: true, description: true })
+    ),
     defaultValues: {
-      workspaceId,
-      status: initialStatus === null ? undefined : initialStatus,
+      ...initialValues,
+      dueDate: initialValues.dueDate
+        ? new Date(initialValues.dueDate)
+        : undefined,
     },
   });
   const onSubmit = (values: z.infer<typeof createTaskSchema>) => {
     mutate(
-      { json: { ...values, workspaceId } },
+      { json: values, param: { taskId: initialValues.$id } },
       {
         onSuccess: () => {
           form.reset();
@@ -70,7 +74,7 @@ const CreateTaskForm = ({
   return (
     <Card className="w-full h-full border-none shadow-none">
       <CardHeader className="flex p-7">
-        <CardTitle className="text-xl font-bold">Create a new task</CardTitle>
+        <CardTitle className="text-xl font-bold">Edit a task</CardTitle>
       </CardHeader>
       <div className="px-7 pb-7">
         <DottedSeparator />
@@ -241,7 +245,7 @@ const CreateTaskForm = ({
                 variant="primary"
                 disabled={isPending}
               >
-                Create Task
+                Save Changes
               </Button>
             </div>
           </form>
@@ -251,4 +255,4 @@ const CreateTaskForm = ({
   );
 };
 
-export default CreateTaskForm;
+export default EditTaskForm;
