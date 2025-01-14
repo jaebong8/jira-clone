@@ -59,19 +59,12 @@ const EditProjectForm = ({ onCancel, initialValues }: Props) => {
       ...values,
       image: values.image instanceof File ? values.image : "",
     };
-    mutate(
-      {
-        form: finalValues,
-        param: {
-          projectId: initialValues.$id,
-        },
+    mutate({
+      form: finalValues,
+      param: {
+        projectId: initialValues.$id,
       },
-      {
-        onSuccess: ({ data }) => {
-          form.reset();
-        },
-      }
-    );
+    });
   };
 
   const handleDelete = async () => {

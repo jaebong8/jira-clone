@@ -2,6 +2,7 @@ import {
   DATABASE_ID,
   IMAGES_BUCKET_ID,
   PROJECTS_ID,
+  TASKS_ID,
   WORKSPACES_ID,
 } from "@/config";
 import { getMember } from "@/features/members/utils";
@@ -68,6 +69,30 @@ const app = new Hono()
       return c.json({ data: project });
     }
   )
+  .get("/:projectId", sessionMiddleware, async (c) => {
+    const user = c.get("user");
+    const databases = c.get("databases");
+
+    const { projectId } = c.req.param();
+
+    const project = await databases.getDocument<Project>(
+      DATABASE_ID,
+      PROJECTS_ID,
+      projectId
+    );
+
+    const member = await getMember({
+      databases,
+      workspaceId: project.workspaceId,
+      userId: user.$id,
+    });
+
+    if (!member) {
+      return c.json({ error: "Unauthorized" }, 401);
+    }
+
+    return c.json({ data: project });
+  })
   .get(
     "/",
     sessionMiddleware,
