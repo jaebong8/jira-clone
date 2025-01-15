@@ -1,9 +1,4 @@
-import {
-  useQueryState,
-  parseAsBoolean,
-  parseAsString,
-  parseAsStringEnum,
-} from "nuqs";
+import { useQueryState, parseAsBoolean, parseAsStringEnum } from "nuqs";
 import { TaskStatus } from "../types";
 
 export const useCreateTaskModal = () => {
