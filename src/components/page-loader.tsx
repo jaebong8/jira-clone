@@ -3,7 +3,7 @@ import React from "react";
 
 const PageLoader = () => {
   return (
-    <div className="h-full flex-center">
+    <div className="flex-center h-screen">
       <Loader className="size-6 animate-spin text-muted-foreground" />
     </div>
   );
