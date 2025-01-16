@@ -1,7 +1,7 @@
 "use client";
 
 import DottedSeparator from "@/components/dotted-separator";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Loader, LogOut } from "lucide-react";
 import {
   DropdownMenu,

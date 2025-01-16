@@ -4,12 +4,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 import ProjectIdSettingsClient from "./client";
 
-type Props = {
-  params: {
-    projectId: string;
-  };
-};
-const ProjectIdSettingsPage = async ({ params }: Props) => {
+const ProjectIdSettingsPage = async () => {
   const user = await getCurrent();
   if (!user) redirect("/sign-in");
 
